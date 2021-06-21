@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-import telebot, bs4, requests
+import telebot
+import requests
+import bs4
 bot = telebot.TeleBot("1822080825:AAGxDLr0pGRz6bhpRgsSJKR4_3uSBZOHSgw")
 
 def getanekdot():
@@ -11,12 +13,11 @@ def getanekdot():
         s=(x.getText().strip())
         z=z+s+'\n\n'
     return s
-
 @bot.message_handler(content_types=["text"])
 def handle_text(message):
     msg=message.text
     msg=msg.lower()
-    if (u'/анекдот' in msg) or (u'анекдот' in msg):
+    if (u'анекдот' in msg):
         try:
             bot.send_message(message.from_user.id, getanekdot())
         except:
@@ -26,7 +27,7 @@ def handle_text(message):
 
 bot.polling(none_stop=True, timeout=123)
 
-@bot.message_handler(commands=['start', 'help', '/Анекдот'])
+@bot.message_handler(commands=['start', 'help'])
 def handle_start_help(message):
     bot.send_message(message.from_user.id, u'Напишите мне слово Анекдот')
 
